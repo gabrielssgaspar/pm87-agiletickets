@@ -1,13 +1,22 @@
 package br.com.caelum.agiletickets.acceptance;
 
+import java.util.Arrays;
+import java.util.List;
+
+import junit.framework.Assert;
+
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.mockito.Mockito;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
 import br.com.caelum.agiletickets.acceptance.page.EstabelecimentosPage;
+import br.com.caelum.agiletickets.controllers.EstabelecimentosController;
+import br.com.caelum.agiletickets.domain.DiretorioDeEstabelecimentos;
+import br.com.caelum.agiletickets.models.Estabelecimento;
 
 public class EstabelecimentoTest {
 
@@ -74,5 +83,5 @@ public class EstabelecimentoTest {
 
 		estabelecimentos.ultimaLinhaDeveTerEstacionamento(false);
 	}
-	
+
 }

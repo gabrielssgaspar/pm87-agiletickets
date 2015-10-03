@@ -1,8 +1,14 @@
 package br.com.caelum.agiletickets.controllers;
 
+import java.util.Arrays;
+import java.util.List;
+
+import junit.framework.Assert;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.mockito.Spy;
 
@@ -61,5 +67,30 @@ public class EstabelecimentosControllerTest {
 
 		verify(diretorio).adiciona(estabelecimento);
 	}
+
+	@Test
+	public void deveListarTodosEstabelecimentosDoDiretorio() {
+		
+		DiretorioDeEstabelecimentos dao = Mockito.mock(DiretorioDeEstabelecimentos.class);
+		
+		Mockito.when(dao.todos()).thenReturn(Arrays.asList(new Estabelecimento(),new Estabelecimento(),new Estabelecimento()));
+		
+		EstabelecimentosController sujeito = new EstabelecimentosController(null, null, dao);
+		
+		List<Estabelecimento> todos = sujeito.lista();
+		
+		Assert.assertEquals(3, todos.size());
+	}
 	
+	@Test(expected=RuntimeException.class)
+	public void deveLancarUmaExceptionQuandoOBancoEstiverForaDoAr() {
+		
+		DiretorioDeEstabelecimentos dao = Mockito.mock(DiretorioDeEstabelecimentos.class);
+		
+		Mockito.when(dao.todos()).thenThrow(new RuntimeException());
+		
+		EstabelecimentosController sujeito = new EstabelecimentosController(null, null, dao);
+		
+		sujeito.lista();
+	}
 }
